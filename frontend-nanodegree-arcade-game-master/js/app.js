@@ -8,7 +8,7 @@ var Enemy = function(initX, initY) {
     this.sprite = 'images/enemy-bug.png';
     this.x = initX;
     this.y = initY;
-    this.speed = Math.floor(Math.random());
+    this.speed = Math.floor(Math.random()*(10-4)+4);
 };
 
 // Update the enemy's position, required method for game
@@ -20,10 +20,10 @@ Enemy.prototype.update = function(dt) {
     if(this.x > 480)
         {
             this.x = -50;
-            this.speed = Math.floor(Math.random()*(10-4)+4);
+           // this.speed = Math.floor(Math.random()*(10-4)+4);
         }
 
-             this.x = this.x+this.speed+100*dt;
+             this.x = this.x+this.speed+Math.floor(Math.random()*(500-300)+300)*dt;
 
 
 
@@ -37,33 +37,67 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var negScore = 0;
-
+var score = 0;
 var Player = function(initX, initY){
     this.x = initX;
     this.y = initY;
     this.sprite = 'images/char-boy.png';
 }
+reset = function(){
+        console.log(score);
+       if(score == 20 || y <= 1 ){
+            ctx.fillStyle = "blue";
+            ctx.rect(10, 10, 505, 606);
+            ctx.font = "50px Georgia";
+            ctx.fillText("GAME OVER", 100, 300);
+            ctx.font = "20px Georgia";
+            ctx.fillText("PRESS SPACE TO RESTART", 100, 350);
+            player.x = 310;
+            player.y = 400;
+           for(i=0; i<= 2; i++)
+                {
+                    allEnemies[i].x = 0;
+                    allEnemies[i].y = 0;
 
+                }
+        restart();
+    }
+}
+
+restart = function(keyCode){
+    //addEventListener.
+    if(keyCode == "(space)")
+    {
+        var allEnemies = [];
+        x = 30;
+        y = 70;
+        for(i = 0; i <= 2; i++){
+            var enemy = new Enemy(x, y);
+            allEnemies.push(enemy);
+            x = 100;
+            y += 80;
+            player.x = 310;
+            player.y = 400;
+    }
+
+    }
+}
 Player.prototype.update = function(){
-    if(negScore == 10){
-        ctx.strokeStyle = "green";
-        ctx.strokeText("GAME OVER", 100, 100);    }
-
-        for (var i =0; i <= allEnemies.length-1; i++)
-            {
-                if (allEnemies[i].x < this.x + 50 &&
-                   allEnemies[i].x + 50 > this.x &&
-                   allEnemies[i].y < this.y + 60 &&
-                   60 + allEnemies[i].y > this.y) {
-                    // collision detected!
-                        this.x = 310;
-                        this.y = 400;
-                        negScore += 1;
-                    }
-                    else {
-                        Player.prototype.handleInput();
-                    }
+    reset();
+    for (var i =0; i <= allEnemies.length-1; i++)
+        {
+            if (allEnemies[i].x < this.x + 50 &&
+                allEnemies[i].x + 50 > this.x &&
+                allEnemies[i].y < this.y + 60 &&
+                60 + allEnemies[i].y > this.y) {
+                 // collision detected!
+                   this.x = 310;
+                   this.y = 400;
+                   score += 1;
+                   }
+            else {
+                Player.prototype.handleInput();
+                }
 
             }
 
@@ -91,6 +125,8 @@ Player.prototype.handleInput = function(direction){
 
 }
 
+
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
@@ -114,8 +150,10 @@ document.addEventListener('keyup', function(e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        32: '(space)'
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+    restart(allowedKeys[e.keyCode]);
 });
