@@ -58,6 +58,12 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
+        if(score == 10)
+        {
+            return;
+
+        }
+
     }
 
     /* This function does some initial setup that should only occur once,

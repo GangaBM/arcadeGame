@@ -43,7 +43,7 @@ var Player = function(initX, initY){
     this.y = initY;
     this.sprite = 'images/char-boy.png';
 }
-reset = function(){
+function reset(){
         console.log(score);
        if(score == 20 || y <= 1 ){
             ctx.fillStyle = "blue";
@@ -64,7 +64,7 @@ reset = function(){
     }
 }
 
-restart = function(keyCode){
+function restart(keyCode){
     //addEventListener.
     if(keyCode == "(space)")
     {
