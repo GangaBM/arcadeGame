@@ -43,45 +43,7 @@ var Player = function(initX, initY){
     this.y = initY;
     this.sprite = 'images/char-boy.png';
 }
-function reset(){
-        console.log(score);
-       if(score == 20 || y <= 1 ){
-            ctx.fillStyle = "blue";
-            ctx.rect(10, 10, 505, 606);
-            ctx.font = "50px Georgia";
-            ctx.fillText("GAME OVER", 100, 300);
-            ctx.font = "20px Georgia";
-            ctx.fillText("PRESS SPACE TO RESTART", 100, 350);
-            player.x = 310;
-            player.y = 400;
-           for(i=0; i<= 2; i++)
-                {
-                    allEnemies[i].x = 0;
-                    allEnemies[i].y = 0;
 
-                }
-        restart();
-    }
-}
-
-function restart(keyCode){
-    //addEventListener.
-    if(keyCode == "(space)")
-    {
-        var allEnemies = [];
-        x = 30;
-        y = 70;
-        for(i = 0; i <= 2; i++){
-            var enemy = new Enemy(x, y);
-            allEnemies.push(enemy);
-            x = 100;
-            y += 80;
-            player.x = 310;
-            player.y = 400;
-    }
-
-    }
-}
 Player.prototype.update = function(){
     reset();
     for (var i =0; i <= allEnemies.length-1; i++)
@@ -143,6 +105,7 @@ for(i = 0; i <= 2; i++){
 
 var player = new Player(310, 400);
 
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
@@ -157,3 +120,38 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
     restart(allowedKeys[e.keyCode]);
 });
+
+function reset(){
+        console.log(score);
+       if(player.y <= 1 ){
+            ctx.fillStyle = "blue";
+            ctx.rect(10, 10, 505, 606);
+            ctx.font = "50px Georgia";
+            ctx.fillText("GAME OVER", 100, 300);
+            ctx.font = "20px Georgia";
+            ctx.fillText("PRESS SPACE TO RESTART", 100, 350);
+            player.x = 310;
+            player.y = 400;
+            allEnemies = [];
+        restart();
+    }
+}
+
+function restart(keyCode){
+    //addEventListener.
+    if(keyCode == "(space)")
+    {
+        var allEnemies = [];
+        x = 30;
+        y = 70;
+        for(i = 0; i <= 2; i++){
+            var enemy = new Enemy(x, y);
+            allEnemies.push(enemy);
+            x = 100;
+            y += 80;
+            player.x = 310;
+            player.y = 400;
+    }
+
+    }
+}
