@@ -1,7 +1,7 @@
 //Enemy object and Methods
 var Enemy = function(initX, initY) {
     // Variables applied to each of our instances go here,
-    this.sprite = '3/images/enemy-bug.png';
+    this.sprite = 'images/enemy-bug.png';
     this.x = initX;
     this.y = initY;
     this.speed = Math.floor(Math.random() * (100 - 200) + 200);
@@ -27,7 +27,7 @@ Enemy.prototype.render = function() {
 var Player = function(initX, initY) {
     this.x = initX;
     this.y = initY;
-    this.sprite = '3/images/char-boy.png';
+    this.sprite = 'images/char-boy.png';
 };
 
 // player movement through handleInput which listens to key presses. Resetting player's position once he reaches water
