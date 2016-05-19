@@ -1,0 +1,13 @@
+body {
+    text-align: center;
+}
+
+#score {
+
+	background-color: black;
+	color: white;
+	font-size: 40px;
+	width: 505;
+	margin: auto;
+
+}
